@@ -1,4 +1,4 @@
 //= require ./prototype
-//= require ./behavoir
+//= require ./behaviour
 //= require ./moo.fx
 //= require ./moo.fx.pack

@@ -5,6 +5,5 @@
 // the compiled file.
 //
 //= require externals
-//= require self
 //= require ./atmosphere
 
