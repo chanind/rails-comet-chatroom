@@ -2,3 +2,5 @@
 
 This is a demo application for using true comet (ajax push) within rails. This uses
 JRuby with Torquebox and the atmosphere plugin.
+
+This doesn't actually work yet! :)
