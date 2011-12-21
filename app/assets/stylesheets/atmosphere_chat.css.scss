@@ -1,5 +1,5 @@
 body {
-    background-image: url(../images/body-background.png);
+    background-image: image-url("body-background.png");
     background-repeat: repeat-x;
     background-color: #5c8098;
 }
@@ -29,7 +29,7 @@ body, textarea, input {
 #header {
     width: 820px;
     height: 100px;
-    background-image: url(../images/header-background.png);
+    background-image: image-url("header-background.png");
     background-repeat: no-repeat;
 }
 
@@ -39,7 +39,7 @@ body, textarea, input {
 
 #main {
     height: 610px;
-    background-image: url(../images/main-background.png);
+    background-image: image-url("main-background.png");
     background-repeat: no-repeat;
     text-align: left;
     width: 740px;
