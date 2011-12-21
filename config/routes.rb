@@ -1,5 +1,7 @@
 RailsChatroom::Application.routes.draw do
 
+  match '/comet' => [200, {"Content-Type" => 'text/html'}, ['Hi There!']]
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
