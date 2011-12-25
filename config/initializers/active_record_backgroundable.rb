@@ -4,6 +4,6 @@
 # end
 # 
 # a_model_instance.background.another_method
-if defined?(TorqueBox::Messaging::Backgroundable) && defined?(ActiveRecord::Base)
-  ActiveRecord::Base.send(:include, TorqueBox::Messaging::Backgroundable)
-end
+#if defined?(TorqueBox::Messaging::Backgroundable) && defined?(ActiveRecord::Base)
+#  ActiveRecord::Base.send(:include, TorqueBox::Messaging::Backgroundable)
+#end
