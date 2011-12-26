@@ -29,19 +29,24 @@
 	<description>Rails Atmosphere Chat</description>
   <display-name>Rails Atmosphere Chat</display-name>
 	<servlet>
-        <description>AtmosphereServlet</description>
-        <servlet-name>AtmosphereServlet</servlet-name>
-        <servlet-class>org.atmosphere.cpr.AtmosphereServlet</servlet-class>
-        <async-supported>true</async-supported>
-        <init-param>
-            <param-name>org.atmosphere.useNative</param-name>
-            <param-value>true</param-value>
-        </init-param>
-        <load-on-startup>0</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AtmosphereServlet</servlet-name>
-        <url-pattern>/atmosphere-chat/*</url-pattern>
-    </servlet-mapping>
+      <description>AtmosphereServlet</description>
+      <servlet-name>AtmosphereServlet</servlet-name>
+      <servlet-class>org.atmosphere.cpr.AtmosphereServlet</servlet-class>
+      <async-supported>true</async-supported>
+      <init-param>
+          <param-name>org.atmosphere.useNative</param-name>
+          <param-value>true</param-value>
+      </init-param>
+      <load-on-startup>0</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>AtmosphereServlet</servlet-name>
+      <url-pattern>/atmosphere-chat/*</url-pattern>
+  </servlet-mapping>
+	
+	<atmosphere-handlers>
+     <atmosphere-handler context-root="/atmosphere-chat/ChatAtmosphereHandler"
+         class-name="org.atmosphere.samples.chat.ChatAtmosphereHandler" />
+	</atmosphere-handlers>
 
 </web-app>
