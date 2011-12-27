@@ -18,3 +18,5 @@ log
 tmp
 deploy.sh
 tinker
+atmosphere-chat-0.8.2-sources.jar
+ChatAtmosphereHandler.java
