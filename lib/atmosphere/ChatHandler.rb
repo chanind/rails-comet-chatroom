@@ -22,14 +22,16 @@ java_import 'java.util.concurrent.atomic.AtomicBoolean'
 class ChatHandler
   java_implements 'AtmosphereHandler<HttpServletRequest, HttpServletResponse>'
   
-  attr_accessor :filterAdded
+  attr_accessor :filterAdded, :logger
   
   BEGIN_SCRIPT_TAG = "<script type='text/javascript'>\n"
   END_SCRIPT_TAG = "</script>\n"
   CLUSTER = "org.atmosphere.useCluster"
   
+  
   def initialize
     @filterAdded = AtomicBoolean.new(false)
+    @logger = LoggerFactory.getLogger("ChatHandler")
   end
   
   java_signature 'void onRequest(AtmosphereResource<HttpServletRequest, HttpServletResponse> event) throws IOException'
@@ -37,19 +39,17 @@ class ChatHandler
     req = event.getRequest
     res = event.getResponse
     res.setContentType("text/html;charset=ISO-8859-1")
-    
-    if req.getMethod.equalsIgnoreCase("GET")
+    if req.getMethod.upcase == "GET"
       event.suspend
   
       bc = event.getBroadcaster
       clusterType = event.getAtmosphereConfig.getInitParameter(CLUSTER)
-      if !filterAdded.getAndSet(true) && clusterType != null
+      if !filterAdded.getAndSet(true) && !clusterType.nil?
         if clusterType.equals("jgroups")
           event.getAtmosphereConfig.getServletContext.log("JGroupsFilter enabled")
           bc.getBroadcasterConfig.addFilter(JGroupsFilter.new(bc))
         end
       end
-  
       bc.getBroadcasterConfig.addFilter(XSSHtmlFilter.new)
       f = bc.broadcast(event.getAtmosphereConfig.getWebServerName +
               "**has suspended a connection from " + req.getRemoteAddr)
@@ -62,14 +62,12 @@ class ChatHandler
       end
   
       #Ping the connection every 30 seconds
-      bc.scheduleFixedBroadcast(req.getRemoteAddr() + "**is still listening", 30, TimeUnit.SECONDS)
-  
+      bc.scheduleFixedBroadcast(req.getRemoteAddr() + "**is still listening", 30, TimeUnit::SECONDS)
       #Delay a message until the next broadcast.
       bc.delayBroadcast("Delayed Chat message")
-    elsif req.getMethod.equalsIgnoreCase("POST")
+    elsif req.getMethod.upcase == "POST"
       action = req.getParameterValues("action")[0]
       name = req.getParameterValues("name")[0]
-  
       if "login" == action
         req.getSession().setAttribute("name", name)
         event.getBroadcaster().broadcast("System Message from " +
@@ -89,29 +87,22 @@ class ChatHandler
   def onStateChange(event)
     req = event.getResource.getRequest
     res = event.getResource.getResponse
+    
+    e = event.getMessage.to_s
+    split_message = e.split('**')
+    name = split_message[0]
+    message = split_message[1] || ""
 
-    unless event.getMessage.nil?
-      e = event.getMessage.toString
-      name = e
-      message = ""
-  
-      if e.indexOf("**") > 0
-        name = e.substring(0, e.indexOf("**"))
-        message = e.substring(e.indexOf("**") + 2)
-      end
-  
-      msg = BEGIN_SCRIPT_TAG + toJsonp(name, message) + END_SCRIPT_TAG
-  
-      if event.isCancelled()
-        event.getResource.getBroadcaster.broadcast(req.getSession.getAttribute("name") + " has left")
-      elsif event.isResuming || event.isResumedOnTimeout
-        script = "<script>window.parent.app.listen();\n</script>"
-        res.getWriter.write(script)
-      else
-        res.getWriter.write(msg)
-      end
-      res.getWriter.flush
+    msg = BEGIN_SCRIPT_TAG + to_jsonp(name, message) + END_SCRIPT_TAG
+    if event.isCancelled()
+      event.getResource.getBroadcaster.broadcast(req.getSession.getAttribute("name") + " has left")
+    elsif event.isResuming || event.isResumedOnTimeout
+      script = "<script>window.parent.app.listen();\n</script>"
+      res.getWriter.write(script)
+    else
+      res.getWriter.write(msg)
     end
+    res.getWriter.flush
   end  
   
   java_signature 'void destroy()'
@@ -120,8 +111,7 @@ class ChatHandler
   
 private  
   
-  java_signature 'String toJsonp(String name, String message)'
-  def toJsonp(name, message)
+  def to_jsonp(name, message)
     "window.parent.app.update({ name: \"#{name}\", message: \"#{message}\" });\n"
   end
   

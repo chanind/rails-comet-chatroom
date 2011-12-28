@@ -30,7 +30,7 @@ gem 'jquery-rails'
 # gem 'capistrano'
 
 # To use debugger
-# gem 'ruby-debug'
+gem 'ruby-debug'
 
 gem "torquebox-rake-support", "2.0.0.beta1"
 #gem "torquebox", "2.0.0.beta1"

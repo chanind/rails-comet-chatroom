@@ -21,8 +21,6 @@ tinker
 atmosphere-chat-0.8.2-sources.jar
 ChatAtmosphereHandler.java
 lib/atmosphere/ChatHandler.java
-lib/atmosphere/chat_handler.class
 lib/atmosphere/ChatHandler.java
-classes/atmosphere/atmosphere/ChatHandler.java
-classes/atmosphere/ChatHandler.class
-classes/atmosphere/ChatHandler.java
+deploy_jboss.sh
+deploy_glassfish.sh

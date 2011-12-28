@@ -24,7 +24,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee    http://java.sun.com/xml/n
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AtmosphereServlet</servlet-name>
-		<url-pattern>/ChatAtmosphereHandler</url-pattern>
+		<url-pattern>/ChatHandler</url-pattern>
 	</servlet-mapping>
 	<context-param>
 		<param-name>public.root</param-name>
