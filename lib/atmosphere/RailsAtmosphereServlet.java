@@ -4,6 +4,7 @@ import javax.servlet.ServletConfig;
 import org.atmosphere.cpr.AtmosphereHandler;
 import org.atmosphere.cpr.AtmosphereServlet;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 public class RailsAtmosphereServlet extends AtmosphereServlet{
 	

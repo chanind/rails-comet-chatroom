@@ -24,3 +24,6 @@ lib/atmosphere/ChatHandler.java
 lib/atmosphere/ChatHandler.java
 deploy_jboss.sh
 deploy_glassfish.sh
+bin
+.classpath
+.classpath
