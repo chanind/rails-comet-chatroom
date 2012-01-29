@@ -14,7 +14,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee    http://java.sun.com/xml/n
 	<servlet>
 		<description>AtmosphereServlet</description>
 		<servlet-name>AtmosphereServlet</servlet-name>
-		<servlet-class>atmosphere.RailsAtmosphereServlet</servlet-class>
+		<servlet-class>org.atmosphere.cpr.AtmosphereServlet</servlet-class>
 		<async-supported>true</async-supported>
 		<init-param>
 			<param-name>org.atmosphere.useNative</param-name>
