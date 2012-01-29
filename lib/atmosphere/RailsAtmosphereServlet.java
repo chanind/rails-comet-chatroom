@@ -27,4 +27,26 @@ public class RailsAtmosphereServlet extends AtmosphereServlet{
         }
     }
 	
+	protected void loadAtmosphereDotXml(InputStream stream, URLClassLoader c) throws IOException, ServletException {
+		String handlerClassName = "ChatHandler";
+		try {
+			AtmosphereHandler handler = new ChatHandler();
+			String handlerPath = "/ChatHandler";
+			
+			InjectorProvider.getInjector().inject(handler);
+			logger.info("Installed AtmosphereHandler {} mapped to context-path: {}", handler, handlerPath);
+			
+			config.supportSession = true;
+			
+			Broadcaster b = BroadcasterFactory.getDefault().get(handlerPath);
+	
+	        AtmosphereHandlerWrapper wrapper = new AtmosphereHandlerWrapper(handler, b);
+	        addMapping(handlerPath, wrapper);
+		
+		} catch (Throwable t) {
+            logger.warn("unable to load AtmosphereHandler class: " + handlerClassName, t);
+            throw new ServletException(t);
+        }
+    }
+	
 }

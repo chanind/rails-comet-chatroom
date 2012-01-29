@@ -8,24 +8,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee    http://java.sun.com/xml/n
 xmlns:j2ee="http://java.sun.com/xml/ns/javaee"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee    http://java.sun.com/xml/ns/j2ee/web-app_2.5.xsd">
-
-	<description>Atmosphere Chat</description>
-	<display-name>Atmosphere Chat</display-name>
-	<servlet>
-		<description>AtmosphereServlet</description>
-		<servlet-name>AtmosphereServlet</servlet-name>
-		<servlet-class>org.atmosphere.cpr.AtmosphereServlet</servlet-class>
-		<async-supported>true</async-supported>
-		<init-param>
-			<param-name>org.atmosphere.useNative</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<load-on-startup>0</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AtmosphereServlet</servlet-name>
-		<url-pattern>/ChatHandler</url-pattern>
-	</servlet-mapping>
+	
 	<context-param>
 		<param-name>public.root</param-name>
 		<param-value>/</param-value>
@@ -45,5 +28,23 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee    http://java.sun.com/xml/n
 	<listener>
 		<listener-class>org.jruby.rack.rails.RailsServletContextListener</listener-class>
 	</listener>
+	
+	<description>Atmosphere Chat</description>
+	<display-name>Atmosphere Chat</display-name>
+	<servlet>
+		<description>AtmosphereServlet</description>
+		<servlet-name>AtmosphereServlet</servlet-name>
+		<servlet-class>org.atmosphere.cpr.AtmosphereServlet</servlet-class>
+		<async-supported>true</async-supported>
+		<init-param>
+			<param-name>org.atmosphere.useNative</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AtmosphereServlet</servlet-name>
+		<url-pattern>/ChatHandler</url-pattern>
+	</servlet-mapping>
 </web-app>
 
